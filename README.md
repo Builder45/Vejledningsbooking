@@ -26,15 +26,15 @@ I første Sprint er vi blevet bedt om at udføre følgende opgaver:
 2. Implementér domænemodellen samt regler.
 3. Implementér persistering af domænemodellen.
 4. Implementering af følgende events:
-   4.1 Indlæs kalender.
-   4.2 Opret booking i et booking vindue.
+  4.1 Indlæs kalender.
+  4.2 Opret booking i et booking vindue.
 
 
 ## Løsning
 
 ### Domænet
 
-Vi har identificeret en række entiteter som udgør domænet for projektet:
+Vi har identificeret en række entiteter/klasser som udgør domænet for projektet:
 
 * Kalender
 * BookingVindue
@@ -46,6 +46,7 @@ Vi har identificeret en række entiteter som udgør domænet for projektet:
 Vi har forsøgt at lave en domænemodel, som primært fokuserer på forholdet mellem Kalender, BookingVindue og Booking. Vi har kun påvist relationer til de tre sidste entiter, hvis de havde en relation til vores fokusområde.
 
 Vi har lavet følgende antagelse om Underviser - Kalender - Hold relationerne:
+
 *Et hold kan have flere undervisere. Et hold kan have flere kalendere, men kun én per tilknyttet underviser*
 
 ![Domænemodel](/design/Domænemodel.png)
