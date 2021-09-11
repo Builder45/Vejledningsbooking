@@ -22,12 +22,12 @@ Bookinger oprettes af studerende.
 
 I første Sprint er vi blevet bedt om at udføre følgende opgaver:
 
-1. Udarbejd en domæne model (klasser og relationer).
-2. Implementér domænemodellen samt regler.
-3. Implementér persistering af domænemodellen.
-4. Implementering af følgende events:
-  4. Indlæs kalender.
-  4. Opret booking i et booking vindue.
+* Udarbejd en domæne model (klasser og relationer).
+* Implementér domænemodellen samt regler.
+* Implementér persistering af domænemodellen.
+* Implementering af følgende events:
+  * Indlæs kalender.
+  * Opret booking i et booking vindue.
 
 
 ## Løsning
