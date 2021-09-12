@@ -1,5 +1,7 @@
 # Vejledningsbooking
 
+Udarbejdet af Magnus, Nils, Sune og Mikkel
+
 Vi har haft til opgave at gennemføre det første sprint af et Vejledningsbooking projekt. 
 
 *"Underviserne ved UCL har brug for et vejledningsbooking system, således studerende kan booke vejledning i forbindelse med projektperioder."*
