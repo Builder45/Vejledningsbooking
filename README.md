@@ -65,7 +65,7 @@ F.eks:
 * Vejledningsbooking.Persistence
 
 Domain kender intet til de andre.
-Application kender til Domain
+Application kender til Domain.
 Persistence kender til Application og Domain.
 
 
