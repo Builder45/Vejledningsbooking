@@ -49,9 +49,8 @@ Vi har forsøgt at lave en domænemodel, som primært fokuserer på forholdet me
 
 Vi har lavet følgende antagelse om Underviser - Kalender - Hold relationerne:
 
-*Et hold kan have flere undervisere. Et hold kan have flere kalendere, men kun én per tilknyttet underviser*
-KalenderId er en repræsentation af UnderviserId kombineret med HoldId. 
-
+*Et hold kan have flere undervisere. Et hold kan have flere kalendere, men kun én per tilknyttet underviser*  
+KalenderId er en repræsentation af UnderviserId kombineret med HoldId.  
 
 ![Domænemodel](/design/Domænemodel.png)
 
@@ -65,8 +64,8 @@ F.eks:
 * Vejledningsbooking.Application
 * Vejledningsbooking.Persistence
 
-Domain kender intet til de andre.
-Application kender til Domain.
+Domain kender intet til de andre.  
+Application kender til Domain.  
 Persistence kender til Application og Domain.
 
 
