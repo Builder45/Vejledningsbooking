@@ -2,7 +2,7 @@
 
 namespace Vejledningsbooking.Application
 {
-    public interface IIndlæsKalenderCommand
+    public interface ILoadKalenderUseCase
     {
         IKalender Execute(int underviserId, int holdId);
     }
