@@ -2,11 +2,11 @@
 
 namespace Vejledningsbooking.Application
 {
-    public class IndlæsKalenderCommand : IIndlæsKalenderCommand
+    public class LoadKalenderUseCase : ILoadKalenderUseCase
     {
         private IDatabaseService _dbService;
 
-        public IndlæsKalenderCommand(IDatabaseService databaseService)
+        public LoadKalenderUseCase(IDatabaseService databaseService)
         {
             _dbService = databaseService;
         }

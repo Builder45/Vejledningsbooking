@@ -8,4 +8,8 @@
     <ProjectReference Include="..\Domain\Vejledningsbooking.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="UseCase\OpretBooking\" />
+  </ItemGroup>
+
 </Project>
