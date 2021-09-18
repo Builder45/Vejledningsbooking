@@ -25,7 +25,7 @@ namespace Vejledningsbooking.Persistence
 
         public Kalender LoadKalender(int underviserId, int holdId)
         {
-            IKalender kalender = _factory.CreateKalender();
+            Kalender kalender = new Kalender();
             kalender.UnderviserId = underviserId;
             kalender.HoldId = holdId;
 
@@ -40,7 +40,7 @@ namespace Vejledningsbooking.Persistence
             while (reader.Read() == true)
             {
                 int nextId = reader.GetInt32(0);
-                kalender.BookingVindueListe.Add(LoadBookingVindue(nextId));
+                kalender.BookingVinduer.Add(LoadBookingVindue(nextId));
             }
 
             _conn.Close();
@@ -50,7 +50,7 @@ namespace Vejledningsbooking.Persistence
 
         public BookingVindue LoadBookingVindue(int id)
         {
-            IBookingVindue bookingVindue = _factory.CreateBookingVindue();
+            BookingVindue bookingVindue = new BookingVindue();
             bookingVindue.Id = id;
 
             // Load bookingvinduet
@@ -74,7 +74,7 @@ namespace Vejledningsbooking.Persistence
             while (reader.Read() == true)
             {
                 int nextId = reader.GetInt32(0);
-                bookingVindue.BookingListe.Add(LoadBooking(nextId));
+                bookingVindue.Bookinger.Add(LoadBooking(nextId));
             }
 
             return bookingVindue;
@@ -87,7 +87,7 @@ namespace Vejledningsbooking.Persistence
 
         public Booking LoadBooking(int id)
         {
-            IBooking booking = _factory.CreateBooking();
+            Booking booking = new Booking();
             booking.Id = id;
 
             string query = "SELECT * FROM Booking WHERE BookingId = @Id";
