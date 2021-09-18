@@ -9,12 +9,12 @@ namespace Vejledningsbooking.Application
 {
     public interface IDatabaseService
     {
-        IKalender LoadKalender(int underviserId, int holdId);
+        Kalender LoadKalender(int underviserId, int holdId);
 
-        IBookingVindue LoadBookingVindue(int id);
+        BookingVindue LoadBookingVindue(int id);
 
-        void CreateBooking(IBooking booking);
+        void CreateBooking(Booking booking);
 
-        IBooking LoadBooking(int id);
+        Booking LoadBooking(int id);
     }
 }

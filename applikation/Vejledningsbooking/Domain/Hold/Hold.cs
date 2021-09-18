@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace Vejledningsbooking.Domain
 {
-    public class Hold : IHold
+    public class Hold
     {
         public int Id { get; set; }
+
+        public virtual ICollection<Kalender> Kalendere { get; set; }
     }
 }

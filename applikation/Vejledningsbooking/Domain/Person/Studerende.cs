@@ -10,5 +10,7 @@ namespace Vejledningsbooking.Domain
     {
         public int Id { get; set; }
         public string Navn { get; set; }
+
+        public virtual ICollection<Booking> Bookinger { get; set; }
     }
 }

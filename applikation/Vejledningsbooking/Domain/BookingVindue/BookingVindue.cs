@@ -6,22 +6,26 @@ using System.Threading.Tasks;
 
 namespace Vejledningsbooking.Domain
 {
-    public class BookingVindue : IBookingVindue
+    public class BookingVindue
     {
         public int Id { get; set; }
-        public List<IBooking> BookingListe { get; set; } = new List<IBooking>();
         public DateTime StartTidspunkt { get; set; }
         public DateTime SlutTidspunkt { get; set; }
-        public int KalenderId { get; set; }
 
-        public void AddBooking(IBooking booking)
+        public virtual ICollection<Booking> Bookinger { get; set; }
+        public int? KalenderId { get; set; }
+        public virtual Kalender Kalender { get; set; }
+
+
+
+        public void AddBooking(Booking booking)
         {
             if (booking.PasserMedVindue(this) == false)
             {
                 throw new ArgumentOutOfRangeException("Fejl: Booking udenfor tidsrammen");
             }
 
-            foreach (var eksisterendeBooking in BookingListe)
+            foreach (var eksisterendeBooking in Bookinger)
             {
                 if (booking.HarOverlap(eksisterendeBooking))
                 {
@@ -29,7 +33,7 @@ namespace Vejledningsbooking.Domain
                 }
             }
 
-            BookingListe.Add(booking);
+            Bookinger.Add(booking);
         }
     }
 }

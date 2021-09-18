@@ -9,12 +9,10 @@ namespace Vejledningsbooking.Persistence
 {
     public class DatabaseService : IDatabaseService
     {
-        private Factory _factory;
         private SqlConnection _conn = new SqlConnection(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
 
-        public DatabaseService(Factory factory)
+        public DatabaseService()
         {
-            _factory = factory;
         }
 
         private void OpenConnection()
@@ -25,7 +23,7 @@ namespace Vejledningsbooking.Persistence
             }
         }
 
-        public IKalender LoadKalender(int underviserId, int holdId)
+        public Kalender LoadKalender(int underviserId, int holdId)
         {
             IKalender kalender = _factory.CreateKalender();
             kalender.UnderviserId = underviserId;
@@ -50,7 +48,7 @@ namespace Vejledningsbooking.Persistence
             return kalender;
         }
 
-        public IBookingVindue LoadBookingVindue(int id)
+        public BookingVindue LoadBookingVindue(int id)
         {
             IBookingVindue bookingVindue = _factory.CreateBookingVindue();
             bookingVindue.Id = id;
@@ -82,12 +80,12 @@ namespace Vejledningsbooking.Persistence
             return bookingVindue;
         }
 
-        public void CreateBooking(IBooking booking)
+        public void CreateBooking(Booking booking)
         {
             // Opret ny booking i databasen ud fra input parameteren
         }
 
-        public IBooking LoadBooking(int id)
+        public Booking LoadBooking(int id)
         {
             IBooking booking = _factory.CreateBooking();
             booking.Id = id;

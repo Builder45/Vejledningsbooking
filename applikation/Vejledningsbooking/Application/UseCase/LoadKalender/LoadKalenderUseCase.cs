@@ -11,7 +11,7 @@ namespace Vejledningsbooking.Application
             _dbService = databaseService;
         }
 
-        public IKalender Execute(int underviserId, int holdId)
+        public Kalender Execute(int underviserId, int holdId)
         {
             return _dbService.LoadKalender(underviserId, holdId);
         }
