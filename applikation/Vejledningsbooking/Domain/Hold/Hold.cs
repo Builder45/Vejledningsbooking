@@ -8,7 +8,7 @@ namespace Vejledningsbooking.Domain
 {
     public class Hold
     {
-        public int Id { get; set; }
+        public int HoldId { get; set; }
 
         public virtual ICollection<Kalender> Kalendere { get; set; }
     }

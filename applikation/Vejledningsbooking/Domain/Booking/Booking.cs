@@ -8,7 +8,7 @@ namespace Vejledningsbooking.Domain
 {
     public class Booking
     {
-        public int Id { get; set; }
+        public int BookingId { get; set; }
         public DateTime StartTidspunkt { get; set; }
         public DateTime SlutTidspunkt { get; set; }
 

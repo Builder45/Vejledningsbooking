@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Vejledningsbooking.Domain
 {
-    public class Studerende : IPerson
+    public class Studerende
     {
-        public int Id { get; set; }
+        public int StuderendeId { get; set; }
         public string Navn { get; set; }
 
         public virtual ICollection<Booking> Bookinger { get; set; }

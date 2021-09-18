@@ -51,7 +51,7 @@ namespace Vejledningsbooking.Persistence
         public BookingVindue LoadBookingVindue(int id)
         {
             BookingVindue bookingVindue = new BookingVindue();
-            bookingVindue.Id = id;
+            bookingVindue.BookingVindueId = id;
 
             // Load bookingvinduet
 
@@ -88,7 +88,7 @@ namespace Vejledningsbooking.Persistence
         public Booking LoadBooking(int id)
         {
             Booking booking = new Booking();
-            booking.Id = id;
+            booking.BookingVindueId = id;
 
             string query = "SELECT * FROM Booking WHERE BookingId = @Id";
             SqlCommand command = new SqlCommand(query, _conn);
