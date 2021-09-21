@@ -1,15 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Configuration;
+using System.Reflection;
 using Vejledningsbooking.Domain;
 
 namespace Vejledningsbooking.Persistence.Data
 {
     public class BookingContext : DbContext
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public BookingContext()
         {
-            optionsBuilder
-                .UseSqlServer(ConfigurationManager.ConnectionStrings["ExternalBookingDB"].ConnectionString);
+        }
+        public BookingContext(DbContextOptions<BookingContext> options) : base(options)
+        {
         }
 
         public DbSet<Booking> Bookinger { get; set; }
