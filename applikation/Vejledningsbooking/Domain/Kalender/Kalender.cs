@@ -10,11 +10,9 @@ namespace Vejledningsbooking.Domain
 {
     public class Kalender
     {
-        [Key, Column(Order = 0)]
         public int? UnderviserId { get; set; }
         public virtual Underviser Underviser { get; set; }
 
-        [Key, Column(Order = 1)]
         public int? HoldId { get; set; }
         public virtual Hold Hold { get; set; }
 
