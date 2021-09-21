@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Vejledningsbooking.Persistence.Migrations
 {
-    public partial class BookingMigration : Migration
+    public partial class SQLMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,8 +11,8 @@ namespace Vejledningsbooking.Persistence.Migrations
                 name: "Hold",
                 columns: table => new
                 {
-                    HoldId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true)
+                    HoldId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
                 },
                 constraints: table =>
                 {
@@ -23,9 +23,9 @@ namespace Vejledningsbooking.Persistence.Migrations
                 name: "Studerende",
                 columns: table => new
                 {
-                    StuderendeId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Navn = table.Column<string>(type: "TEXT", nullable: true)
+                    StuderendeId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Navn = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -33,94 +33,93 @@ namespace Vejledningsbooking.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Undervisere",
+                name: "Underviser",
                 columns: table => new
                 {
-                    UnderviserId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Navn = table.Column<string>(type: "TEXT", nullable: true)
+                    UnderviserId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Navn = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Undervisere", x => x.UnderviserId);
+                    table.PrimaryKey("PK_Underviser", x => x.UnderviserId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Kalendere",
+                name: "Kalender",
                 columns: table => new
                 {
-                    UnderviserId = table.Column<int>(type: "INTEGER", nullable: false),
-                    HoldId = table.Column<int>(type: "INTEGER", nullable: false)
+                    UnderviserId = table.Column<int>(type: "int", nullable: false),
+                    HoldId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Kalendere", x => new { x.UnderviserId, x.HoldId });
+                    table.PrimaryKey("PK_Kalender", x => new { x.UnderviserId, x.HoldId });
                     table.ForeignKey(
-                        name: "FK_Kalendere_Hold_HoldId",
+                        name: "FK_Kalender_Hold_HoldId",
                         column: x => x.HoldId,
                         principalTable: "Hold",
                         principalColumn: "HoldId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Kalendere_Undervisere_UnderviserId",
+                        name: "FK_Kalender_Underviser_UnderviserId",
                         column: x => x.UnderviserId,
-                        principalTable: "Undervisere",
+                        principalTable: "Underviser",
                         principalColumn: "UnderviserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "BookingVinduer",
+                name: "BookingVindue",
                 columns: table => new
                 {
-                    BookingVindueId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    StartTidspunkt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    SlutTidspunkt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    KalenderId = table.Column<int>(type: "INTEGER", nullable: true),
-                    KalenderUnderviserId = table.Column<int>(type: "INTEGER", nullable: true),
-                    KalenderHoldId = table.Column<int>(type: "INTEGER", nullable: true),
-                    UnderviserId = table.Column<int>(type: "INTEGER", nullable: true)
+                    BookingVindueId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StartTidspunkt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SlutTidspunkt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    KalenderUnderviserId = table.Column<int>(type: "int", nullable: true),
+                    KalenderHoldId = table.Column<int>(type: "int", nullable: true),
+                    UnderviserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BookingVinduer", x => x.BookingVindueId);
+                    table.PrimaryKey("PK_BookingVindue", x => x.BookingVindueId);
                     table.ForeignKey(
-                        name: "FK_BookingVinduer_Kalendere_KalenderUnderviserId_KalenderHoldId",
+                        name: "FK_BookingVindue_Kalender_KalenderUnderviserId_KalenderHoldId",
                         columns: x => new { x.KalenderUnderviserId, x.KalenderHoldId },
-                        principalTable: "Kalendere",
+                        principalTable: "Kalender",
                         principalColumns: new[] { "UnderviserId", "HoldId" },
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_BookingVinduer_Undervisere_UnderviserId",
+                        name: "FK_BookingVindue_Underviser_UnderviserId",
                         column: x => x.UnderviserId,
-                        principalTable: "Undervisere",
+                        principalTable: "Underviser",
                         principalColumn: "UnderviserId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Bookinger",
+                name: "Booking",
                 columns: table => new
                 {
-                    BookingId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    StartTidspunkt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    SlutTidspunkt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    BookingVindueId = table.Column<int>(type: "INTEGER", nullable: true),
-                    StuderendeId = table.Column<int>(type: "INTEGER", nullable: true)
+                    BookingId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StartTidspunkt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SlutTidspunkt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    BookingVindueId = table.Column<int>(type: "int", nullable: true),
+                    StuderendeId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Bookinger", x => x.BookingId);
+                    table.PrimaryKey("PK_Booking", x => x.BookingId);
                     table.ForeignKey(
-                        name: "FK_Bookinger_BookingVinduer_BookingVindueId",
+                        name: "FK_Booking_BookingVindue_BookingVindueId",
                         column: x => x.BookingVindueId,
-                        principalTable: "BookingVinduer",
+                        principalTable: "BookingVindue",
                         principalColumn: "BookingVindueId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Bookinger_Studerende_StuderendeId",
+                        name: "FK_Booking_Studerende_StuderendeId",
                         column: x => x.StuderendeId,
                         principalTable: "Studerende",
                         principalColumn: "StuderendeId",
@@ -128,50 +127,50 @@ namespace Vejledningsbooking.Persistence.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Bookinger_BookingVindueId",
-                table: "Bookinger",
+                name: "IX_Booking_BookingVindueId",
+                table: "Booking",
                 column: "BookingVindueId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Bookinger_StuderendeId",
-                table: "Bookinger",
+                name: "IX_Booking_StuderendeId",
+                table: "Booking",
                 column: "StuderendeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BookingVinduer_KalenderUnderviserId_KalenderHoldId",
-                table: "BookingVinduer",
+                name: "IX_BookingVindue_KalenderUnderviserId_KalenderHoldId",
+                table: "BookingVindue",
                 columns: new[] { "KalenderUnderviserId", "KalenderHoldId" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_BookingVinduer_UnderviserId",
-                table: "BookingVinduer",
+                name: "IX_BookingVindue_UnderviserId",
+                table: "BookingVindue",
                 column: "UnderviserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Kalendere_HoldId",
-                table: "Kalendere",
+                name: "IX_Kalender_HoldId",
+                table: "Kalender",
                 column: "HoldId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Bookinger");
+                name: "Booking");
 
             migrationBuilder.DropTable(
-                name: "BookingVinduer");
+                name: "BookingVindue");
 
             migrationBuilder.DropTable(
                 name: "Studerende");
 
             migrationBuilder.DropTable(
-                name: "Kalendere");
+                name: "Kalender");
 
             migrationBuilder.DropTable(
                 name: "Hold");
 
             migrationBuilder.DropTable(
-                name: "Undervisere");
+                name: "Underviser");
         }
     }
 }

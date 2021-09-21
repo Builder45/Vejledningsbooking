@@ -1,6 +1,6 @@
 ﻿using System;
 using Vejledningsbooking.Application.Commands;
-using Vejledningsbooking.Application.UseCase.OpretBooking;
+using Vejledningsbooking.Application.UseCase;
 using Vejledningsbooking.Persistence;
 
 namespace Test

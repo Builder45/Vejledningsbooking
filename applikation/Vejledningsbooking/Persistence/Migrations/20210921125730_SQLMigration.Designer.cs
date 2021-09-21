@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Vejledningsbooking.Persistence.Data;
@@ -9,32 +10,35 @@ using Vejledningsbooking.Persistence.Data;
 namespace Vejledningsbooking.Persistence.Migrations
 {
     [DbContext(typeof(BookingContext))]
-    [Migration("20210921085200_BookingMigration2")]
-    partial class BookingMigration2
+    [Migration("20210921125730_SQLMigration")]
+    partial class SQLMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "5.0.10");
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("ProductVersion", "5.0.10")
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Vejledningsbooking.Domain.Booking", b =>
                 {
                     b.Property<int>("BookingId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("BookingVindueId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("SlutTidspunkt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("StartTidspunkt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("StuderendeId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("BookingId");
 
@@ -42,29 +46,30 @@ namespace Vejledningsbooking.Persistence.Migrations
 
                     b.HasIndex("StuderendeId");
 
-                    b.ToTable("Bookinger");
+                    b.ToTable("Booking");
                 });
 
             modelBuilder.Entity("Vejledningsbooking.Domain.BookingVindue", b =>
                 {
                     b.Property<int>("BookingVindueId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("KalenderHoldId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int?>("KalenderUnderviserId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("SlutTidspunkt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("StartTidspunkt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("UnderviserId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("BookingVindueId");
 
@@ -72,14 +77,15 @@ namespace Vejledningsbooking.Persistence.Migrations
 
                     b.HasIndex("KalenderUnderviserId", "KalenderHoldId");
 
-                    b.ToTable("BookingVinduer");
+                    b.ToTable("BookingVindue");
                 });
 
             modelBuilder.Entity("Vejledningsbooking.Domain.Hold", b =>
                 {
                     b.Property<int>("HoldId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.HasKey("HoldId");
 
@@ -89,26 +95,27 @@ namespace Vejledningsbooking.Persistence.Migrations
             modelBuilder.Entity("Vejledningsbooking.Domain.Kalender", b =>
                 {
                     b.Property<int?>("UnderviserId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int?>("HoldId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("UnderviserId", "HoldId");
 
                     b.HasIndex("HoldId");
 
-                    b.ToTable("Kalendere");
+                    b.ToTable("Kalender");
                 });
 
             modelBuilder.Entity("Vejledningsbooking.Domain.Studerende", b =>
                 {
                     b.Property<int>("StuderendeId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Navn")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("StuderendeId");
 
@@ -119,14 +126,15 @@ namespace Vejledningsbooking.Persistence.Migrations
                 {
                     b.Property<int>("UnderviserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Navn")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UnderviserId");
 
-                    b.ToTable("Undervisere");
+                    b.ToTable("Underviser");
                 });
 
             modelBuilder.Entity("Vejledningsbooking.Domain.Booking", b =>

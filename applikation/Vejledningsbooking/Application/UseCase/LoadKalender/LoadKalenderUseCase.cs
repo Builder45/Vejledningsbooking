@@ -1,6 +1,6 @@
 ﻿using Vejledningsbooking.Domain;
 
-namespace Vejledningsbooking.Application
+namespace Vejledningsbooking.Application.UseCase
 {
     public class LoadKalenderUseCase : ILoadKalenderUseCase
     {

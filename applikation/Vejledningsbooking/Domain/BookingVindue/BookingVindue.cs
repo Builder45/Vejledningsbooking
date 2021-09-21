@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,12 +9,20 @@ namespace Vejledningsbooking.Domain
 {
     public class BookingVindue
     {
+        [Column(Order = 0)]
         public int BookingVindueId { get; set; }
+        [Column(Order = 1)]
         public DateTime StartTidspunkt { get; set; }
+        [Column(Order = 2)]
         public DateTime SlutTidspunkt { get; set; }
 
+        public int? UnderviserId { get; set; }
+        public virtual Underviser Underviser { get; set; }
+
         public virtual ICollection<Booking> Bookinger { get; set; }
-        //public int? KalenderId { get; set; }
+
+        public int? KalenderUnderviserId { get; set; }
+        public int? KalenderHoldId { get; set; }
         public virtual Kalender Kalender { get; set; }
 
 

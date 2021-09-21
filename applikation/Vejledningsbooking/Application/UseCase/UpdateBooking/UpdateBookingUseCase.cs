@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Vejledningsbooking.Application.Commands;
 
-namespace Vejledningsbooking.Application.UseCase.OpretBooking
+namespace Vejledningsbooking.Application.UseCase
 {
     public class UpdateBookingUseCase
     {

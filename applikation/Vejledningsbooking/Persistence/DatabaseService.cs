@@ -111,7 +111,7 @@ namespace Vejledningsbooking.Persistence
         {
             using (var db = new Data.BookingContext())
             {
-                var booking = db.Bookinger
+                var booking = db.Booking
                     .Single(b => b.BookingId == bookingData.Id);
                 // Single = Finder ét element der matcher conditions
                 // Kaster en fejl, hvis der er 0 eller mere end 1 match

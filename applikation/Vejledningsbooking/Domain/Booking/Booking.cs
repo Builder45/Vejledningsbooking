@@ -1,17 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Vejledningsbooking.Domain
 {
     public class Booking
     {
+        [Column(Order = 0)]
         public int BookingId { get; set; }
+        [Column(Order = 1)]
         public DateTime StartTidspunkt { get; set; }
+        [Column(Order = 2)]
         public DateTime SlutTidspunkt { get; set; }
 
+        public int? StuderendeId { get; set; }
+        public virtual Studerende Studerende { get; set; }
         public int? BookingVindueId { get; set; }
         public virtual BookingVindue BookingVindue { get; set; }
 
