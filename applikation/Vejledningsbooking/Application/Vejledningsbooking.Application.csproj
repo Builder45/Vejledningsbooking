@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="UseCase\OpretBooking\" />
+    <Folder Include="UseCase\UpdateBooking\" />
   </ItemGroup>
 
 </Project>

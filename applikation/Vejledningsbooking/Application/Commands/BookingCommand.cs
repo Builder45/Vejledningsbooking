@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Vejledningsbooking.Application.Commands
 {
-    class BookingCommand
+    public class BookingCommand
     {
+        public int Id { get; set; }
+        public DateTime StartTidspunkt { get; set; }
+        public DateTime SlutTidspunkt { get; set; }
     }
 }

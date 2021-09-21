@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Vejledningsbooking.Application.Commands
 {
-    class KalenderCommand
+    public class KalenderCommand
     {
     }
 }
