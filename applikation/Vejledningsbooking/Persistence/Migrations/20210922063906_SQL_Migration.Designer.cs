@@ -10,8 +10,8 @@ using Vejledningsbooking.Persistence.Data;
 namespace Vejledningsbooking.Persistence.Migrations
 {
     [DbContext(typeof(BookingContext))]
-    [Migration("20210921125730_SQLMigration")]
-    partial class SQLMigration
+    [Migration("20210922063906_SQL_Migration")]
+    partial class SQL_Migration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -56,10 +56,8 @@ namespace Vejledningsbooking.Persistence.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("KalenderHoldId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("KalenderUnderviserId")
+                    b.Property<int?>("HoldId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<DateTime>("SlutTidspunkt")
@@ -69,13 +67,12 @@ namespace Vejledningsbooking.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("UnderviserId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("BookingVindueId");
 
-                    b.HasIndex("UnderviserId");
-
-                    b.HasIndex("KalenderUnderviserId", "KalenderHoldId");
+                    b.HasIndex("UnderviserId", "HoldId");
 
                     b.ToTable("BookingVindue");
                 });
@@ -143,22 +140,22 @@ namespace Vejledningsbooking.Persistence.Migrations
                         .WithMany("Bookinger")
                         .HasForeignKey("BookingVindueId");
 
-                    b.HasOne("Vejledningsbooking.Domain.Studerende", null)
+                    b.HasOne("Vejledningsbooking.Domain.Studerende", "Studerende")
                         .WithMany("Bookinger")
                         .HasForeignKey("StuderendeId");
 
                     b.Navigation("BookingVindue");
+
+                    b.Navigation("Studerende");
                 });
 
             modelBuilder.Entity("Vejledningsbooking.Domain.BookingVindue", b =>
                 {
-                    b.HasOne("Vejledningsbooking.Domain.Underviser", null)
-                        .WithMany("BookingVinduer")
-                        .HasForeignKey("UnderviserId");
-
                     b.HasOne("Vejledningsbooking.Domain.Kalender", "Kalender")
                         .WithMany("BookingVinduer")
-                        .HasForeignKey("KalenderUnderviserId", "KalenderHoldId");
+                        .HasForeignKey("UnderviserId", "HoldId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Kalender");
                 });
@@ -204,8 +201,6 @@ namespace Vejledningsbooking.Persistence.Migrations
 
             modelBuilder.Entity("Vejledningsbooking.Domain.Underviser", b =>
                 {
-                    b.Navigation("BookingVinduer");
-
                     b.Navigation("Kalendere");
                 });
 #pragma warning restore 612, 618

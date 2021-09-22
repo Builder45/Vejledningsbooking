@@ -13,42 +13,114 @@ namespace Vejledningsbooking.Persistence
         {
             using (var db = new Data.BookingContext())
             {
-                db.Underviser.AddRange(
-                    new Underviser() { UnderviserId = 1, Navn = "Karsten" },
-                    new Underviser() { UnderviserId = 2, Navn = "Grete" },
-                    new Underviser() { UnderviserId = 3, Navn = "Kirsten" });
+                db.Underviser.Add(new Underviser() { Navn = "Karsten" });
+                db.SaveChanges();
+            }
+        }
+        public void FullSeed()
+        {
+            using (var db = new Data.BookingContext())
+            {
+                IList<Underviser> undervisere = new List<Underviser>() {
+                    new Underviser() { Navn = "Karsten" },
+                    new Underviser() { Navn = "Grete" },
+                    new Underviser() { Navn = "Kirsten" }
+                };
 
-                db.Studerende.AddRange(
-                    new Studerende() { StuderendeId = 1, Navn = "Nils" },
-                    new Studerende() { StuderendeId = 2, Navn = "Magnus" },
-                    new Studerende() { StuderendeId = 3, Navn = "Sune" });
+                IList<Studerende> studerende = new List<Studerende>() {
+                    new Studerende() { Navn = "Nils" },
+                    new Studerende() { Navn = "Magnus" },
+                    new Studerende() { Navn = "Sune" }
+                };
 
-                db.Hold.AddRange(
-                    new Hold(){ HoldId = 1 }, 
-                    new Hold(){ HoldId = 2 },
-                    new Hold(){ HoldId = 3 });
+                IList<Hold> hold = new List<Hold>() {
+                    new Hold(),
+                    new Hold(),
+                    new Hold()
+                };
 
-                db.Kalender.AddRange(
-                    new Kalender() { UnderviserId = 1, HoldId = 1 },
-                    new Kalender() { UnderviserId = 1, HoldId = 2 },
-                    new Kalender() { UnderviserId = 2, HoldId = 1 });
+                IList<Kalender> kalendere = new List<Kalender>() {
+                    new Kalender() { UnderviserId = 5, HoldId = 5 },
+                    new Kalender() { UnderviserId = 5, HoldId = 6 },
+                    new Kalender() { UnderviserId = 6, HoldId = 5 }
+                };
 
-                db.BookingVindue.AddRange(
-                    new BookingVindue() { BookingVindueId = 1, StartTidspunkt = new DateTime(0),
-                                          UnderviserId = 1, SlutTidspunkt = new DateTime(0),
-                                          KalenderUnderviserId = 1, KalenderHoldId = 1},
-                    new BookingVindue() { BookingVindueId = 1, StartTidspunkt = new DateTime(0),
-                                          UnderviserId = 1, SlutTidspunkt = new DateTime(0),
-                                          KalenderUnderviserId = 1, KalenderHoldId = 1},
-                    new BookingVindue() { BookingVindueId = 1, StartTidspunkt = new DateTime(0),
-                                          UnderviserId = 1, SlutTidspunkt = new DateTime(0),
-                                          KalenderUnderviserId = 1, KalenderHoldId = 1});
+                IList<BookingVindue> bookingvinduer = new List<BookingVindue>() {
+                    new BookingVindue()
+                    {
+                        StartTidspunkt = new DateTime(2021, 11, 11, 12, 0, 0),
+                        SlutTidspunkt = new DateTime(2021, 11, 11, 14, 0, 0),
+                        UnderviserId = 5,
+                        HoldId = 5
+                    },
+                    new BookingVindue()
+                    {
+                        StartTidspunkt = new DateTime(2021, 11, 11, 16, 0, 0),
+                        SlutTidspunkt = new DateTime(2021, 11, 11, 19, 0, 0),
+                        UnderviserId = 5,
+                        HoldId = 6
+                    },
+                    new BookingVindue()
+                    {
+                        StartTidspunkt = new DateTime(2021, 11, 11, 12, 0, 0),
+                        SlutTidspunkt = new DateTime(2021, 11, 11, 16, 0, 0),
+                        UnderviserId = 6,
+                        HoldId = 5
+                    }
+                };
 
-                //db.Booking.AddRange(
-                //    new Hold() { HoldId = 1 },
-                //    new Hold() { HoldId = 1 },
-                //    new Hold() { HoldId = 1 });
+                IList<Booking> bookinger = new List<Booking>() {
+                    new Booking()
+                    {
+                        StartTidspunkt = new DateTime(2021, 11, 11, 12, 0, 0),
+                        SlutTidspunkt = new DateTime(2021, 11, 11, 12, 30, 0),
+                        StuderendeId = 5,
+                        BookingVindueId = 2
+                    },
+                    new Booking()
+                    {
+                        StartTidspunkt = new DateTime(2021, 11, 11, 17, 0, 0),
+                        SlutTidspunkt = new DateTime(2021, 11, 11, 17, 20, 0),
+                        StuderendeId = 6,
+                        BookingVindueId = 3
+                    },
+                    new Booking()
+                    {
+                        StartTidspunkt = new DateTime(2021, 11, 11, 13, 0, 0),
+                        SlutTidspunkt = new DateTime(2021, 11, 11, 14, 0, 0),
+                        StuderendeId = 7,
+                        BookingVindueId = 4
+                    }
+                };
 
+                Console.WriteLine("Tilføjer undervisere..");
+                Console.ReadLine();
+                db.Underviser.AddRange(undervisere);
+                db.SaveChanges();
+
+                Console.WriteLine("Tilføjer studerende..");
+                Console.ReadLine();
+                db.Studerende.AddRange(studerende);
+                db.SaveChanges();
+
+                Console.WriteLine("Tilføjer hold..");
+                Console.ReadLine();
+                db.Hold.AddRange(hold);
+                db.SaveChanges();
+
+                Console.WriteLine("Tilføjer kalendere..");
+                Console.ReadLine();
+                db.Kalender.AddRange(kalendere);
+                db.SaveChanges();
+
+                Console.WriteLine("Tilføjer bookingvinduer..");
+                Console.ReadLine();
+                db.BookingVindue.AddRange(bookingvinduer);
+                db.SaveChanges();
+
+                Console.WriteLine("Tilføjer bookinger..");
+                Console.ReadLine();
+                db.Booking.AddRange(bookinger);
                 db.SaveChanges();
             }
         }

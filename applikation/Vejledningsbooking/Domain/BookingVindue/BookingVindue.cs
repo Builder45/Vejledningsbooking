@@ -17,14 +17,10 @@ namespace Vejledningsbooking.Domain
         public DateTime SlutTidspunkt { get; set; }
 
         public int? UnderviserId { get; set; }
-        public virtual Underviser Underviser { get; set; }
-
-        public virtual ICollection<Booking> Bookinger { get; set; }
-
-        public int? KalenderUnderviserId { get; set; }
-        public int? KalenderHoldId { get; set; }
+        public int? HoldId { get; set; }
         public virtual Kalender Kalender { get; set; }
 
+        public virtual ICollection<Booking> Bookinger { get; set; }
 
 
         public void AddBooking(Booking booking)

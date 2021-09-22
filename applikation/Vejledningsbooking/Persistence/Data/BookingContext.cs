@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using System.Configuration;
-using System.Reflection;
+using System.Linq;
 using Vejledningsbooking.Domain;
 
 namespace Vejledningsbooking.Persistence.Data
@@ -33,6 +32,12 @@ namespace Vejledningsbooking.Persistence.Data
         {
             modelBuilder.Entity<Kalender>()
                 .HasKey(c => new { c.UnderviserId, c.HoldId });
+
+            modelBuilder.Entity<BookingVindue>()
+                .HasOne(o => o.Kalender)
+                .WithMany(m => m.BookingVinduer)
+                .HasForeignKey(f => new { f.UnderviserId, f.HoldId })
+                .IsRequired();
         }
     }
 }

@@ -11,15 +11,21 @@ namespace Test
         {
             Console.WriteLine("Enter to proceed..");
             Console.ReadLine();
+            testUpdateBooking();
+            Console.ReadLine();
+        }
+
+        static void testUpdateBooking()
+        {
             try
             {
                 DatabaseService db = new DatabaseService();
                 UpdateBookingUseCase updateBooking = new UpdateBookingUseCase(db);
 
                 BookingCommand booking = new BookingCommand();
-                booking.Id = 1;
-                booking.StartTidspunkt = new DateTime(2021,10,10,15,00,00);
-                booking.SlutTidspunkt = new DateTime(2021, 10, 10, 16, 00, 00);
+                booking.Id = 4;
+                booking.StartTidspunkt = new DateTime(2021, 11, 11, 13, 15, 00);
+                booking.SlutTidspunkt = new DateTime(2021, 11, 11, 14, 00, 00);
                 updateBooking.Execute(booking);
             }
             catch (Exception e)
@@ -27,7 +33,20 @@ namespace Test
                 Console.WriteLine("Error:");
                 Console.WriteLine(e.Message);
             }
-            Console.ReadLine();
+        }
+
+        static void seedDb()
+        {
+            try
+            {
+                Seeder seeder = new Seeder();
+                seeder.FullSeed();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error:");
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }

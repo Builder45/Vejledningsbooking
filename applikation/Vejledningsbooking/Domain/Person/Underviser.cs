@@ -12,6 +12,5 @@ namespace Vejledningsbooking.Domain
         public string Navn { get; set; }
 
         public virtual ICollection<Kalender> Kalendere { get; set; }
-        public virtual ICollection<BookingVindue> BookingVinduer { get; set; }
     }
 }
