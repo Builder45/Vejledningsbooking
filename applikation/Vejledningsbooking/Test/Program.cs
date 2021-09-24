@@ -2,6 +2,8 @@
 using Vejledningsbooking.Application.Commands;
 using Vejledningsbooking.Application.UseCase;
 using Vejledningsbooking.Persistence;
+using Vejledningsbooking.Persistence.Data;
+using Vejledningsbooking.Persistence.Repositories;
 
 namespace Test
 {
@@ -19,14 +21,15 @@ namespace Test
         {
             try
             {
-                DatabaseService db = new DatabaseService();
+                BookingContext context = new BookingContext();
+                BookingRepository db = new BookingRepository(context);
                 UpdateBookingUseCase updateBooking = new UpdateBookingUseCase(db);
 
-                BookingCommand booking = new BookingCommand();
-                booking.Id = 4;
-                booking.StartTidspunkt = new DateTime(2021, 11, 11, 13, 15, 00);
-                booking.SlutTidspunkt = new DateTime(2021, 11, 11, 14, 00, 00);
-                updateBooking.Execute(booking);
+                BookingCommand bookingData = new BookingCommand();
+                bookingData.Id = 4;
+                bookingData.StartTidspunkt = new DateTime(2021, 11, 11, 13, 15, 00);
+                bookingData.SlutTidspunkt = new DateTime(2021, 11, 11, 14, 00, 00);
+                updateBooking.UpdateBooking(bookingData);
             }
             catch (Exception e)
             {

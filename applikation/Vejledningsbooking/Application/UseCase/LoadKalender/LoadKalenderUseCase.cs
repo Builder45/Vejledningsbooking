@@ -1,19 +1,21 @@
-﻿using Vejledningsbooking.Domain;
+﻿using Vejledningsbooking.Application.Commands;
+using Vejledningsbooking.Application.Repositories;
+using Vejledningsbooking.Domain;
 
 namespace Vejledningsbooking.Application.UseCase
 {
     public class LoadKalenderUseCase : ILoadKalenderUseCase
     {
-        private IDatabaseService _dbService;
+        private IKalenderRepository _db;
 
-        public LoadKalenderUseCase(IDatabaseService databaseService)
+        public LoadKalenderUseCase(IKalenderRepository db)
         {
-            _dbService = databaseService;
+            _db = db;
         }
 
-        public Kalender Execute(int underviserId, int holdId)
+        public Kalender LoadKalender(KalenderCommand data)
         {
-            return _dbService.LoadKalender(underviserId, holdId);
+            return _db.LoadKalender(data);
         }
     }
 }

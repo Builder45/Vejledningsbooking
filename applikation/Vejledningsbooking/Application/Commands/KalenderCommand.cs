@@ -8,5 +8,7 @@ namespace Vejledningsbooking.Application.Commands
 {
     public class KalenderCommand
     {
+        public int UnderviserId { get; set; }
+        public int HoldId { get; set; }
     }
 }

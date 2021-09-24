@@ -4,21 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Vejledningsbooking.Application.Commands;
+using Vejledningsbooking.Application.Repositories;
 
 namespace Vejledningsbooking.Application.UseCase
 {
-    public class UpdateBookingUseCase
+    public class UpdateBookingUseCase : IUpdateBookingUseCase
     {
-        private IDatabaseService _dbService;
+        private IBookingRepository _db;
 
-        public UpdateBookingUseCase(IDatabaseService databaseService)
+        public UpdateBookingUseCase(IBookingRepository db)
         {
-            _dbService = databaseService;
+            _db = db;
         }
 
-        public void Execute(BookingCommand booking)
+        public void UpdateBooking(BookingCommand data)
         {
-            _dbService.UpdateBooking(booking);
+            _db.UpdateBooking(data);
         }
     }
 }

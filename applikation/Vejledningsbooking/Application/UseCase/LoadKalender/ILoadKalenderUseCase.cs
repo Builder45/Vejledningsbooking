@@ -1,9 +1,10 @@
-﻿using Vejledningsbooking.Domain;
+﻿using Vejledningsbooking.Application.Commands;
+using Vejledningsbooking.Domain;
 
 namespace Vejledningsbooking.Application.UseCase
 {
     public interface ILoadKalenderUseCase
     {
-        Kalender Execute(int underviserId, int holdId);
+        Kalender LoadKalender(KalenderCommand data);
     }
 }
