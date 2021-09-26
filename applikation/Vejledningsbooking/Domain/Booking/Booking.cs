@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Vejledningsbooking.Domain
@@ -11,7 +12,8 @@ namespace Vejledningsbooking.Domain
         public DateTime StartTidspunkt { get; set; }
         [Column(Order = 2)]
         public DateTime SlutTidspunkt { get; set; }
-
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
         public int? StuderendeId { get; set; }
         public virtual Studerende Studerende { get; set; }
         public int? BookingVindueId { get; set; }
@@ -25,13 +27,10 @@ namespace Vejledningsbooking.Domain
                 return true;
             }
 
-            if (booking.SlutTidspunkt.Ticks > this.StartTidspunkt.Ticks &&
-                booking.SlutTidspunkt.Ticks < this.SlutTidspunkt.Ticks)
-            {
-                return true;
-            }
+            if (booking.SlutTidspunkt.Ticks <= this.StartTidspunkt.Ticks ||
+                booking.SlutTidspunkt.Ticks >= this.SlutTidspunkt.Ticks) return false;
+            return true;
 
-            return false;
         }
 
         public bool PasserMedVindue(BookingVindue bookingVindue)
