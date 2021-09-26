@@ -26,7 +26,7 @@ namespace Vejledningsbooking.Persistence.Data
         //    => options.UseSqlite($"Data Source={DbPath}");
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlServer("Server=mssql-50861-0.cloudclusters.net,16277; Database=BookingTest; User ID=SuperUser; Password=SuperSuper1; TrustServerCertificate=True");
+            => options.UseSqlServer("Server=mssql-51943-0.cloudclusters.net,18662; Database=VejledningsbookingDB; User ID=TheUser; Password=AllTheAccess1; TrustServerCertificate=True");
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
