@@ -18,30 +18,33 @@ namespace Vejledningsbooking.Persistence.Repositories
             db = context;
         }
 
-        public void CreateBooking(BookingCommand data)
+        public void CreateBooking(Booking bookingData)
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteBooking(BookingCommand data)
+        public void DeleteBooking(Booking bookingData)
         {
             throw new NotImplementedException();
         }
 
-        public Booking LoadBooking(BookingCommand data)
+        public Booking LoadBooking(int id)
         {
-            throw new NotImplementedException();
+            Booking booking = db.Booking
+                    .Single(b => b.BookingId == id);
+            return booking;
         }
 
-        public void UpdateBooking(BookingCommand data)
+        public void UpdateBooking(Booking bookingData)
         {
             var booking = db.Booking
-                    .Single(b => b.BookingId == data.Id);
+                    .Single(b => b.BookingId == bookingData.BookingId);
             // Single = Finder ét element der matcher conditions
             // Kaster en fejl, hvis der er 0 eller mere end 1 match
 
-            booking.StartTidspunkt = data.StartTidspunkt;
-            booking.SlutTidspunkt = data.SlutTidspunkt;
+            
+            booking.StartTidspunkt = bookingData.StartTidspunkt;
+            booking.SlutTidspunkt = bookingData.SlutTidspunkt;
             db.SaveChanges();
         }
     }

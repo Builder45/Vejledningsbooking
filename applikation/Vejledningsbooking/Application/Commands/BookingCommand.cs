@@ -8,8 +8,10 @@ namespace Vejledningsbooking.Application.Commands
 {
     public class BookingCommand
     {
-        public int Id { get; set; }
+        public int BookingId { get; set; }
         public DateTime StartTidspunkt { get; set; }
         public DateTime SlutTidspunkt { get; set; }
+
+        public byte[] RowVersion { get; set; }
     }
 }

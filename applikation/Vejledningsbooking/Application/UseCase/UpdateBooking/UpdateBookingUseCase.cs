@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Vejledningsbooking.Application.Commands;
 using Vejledningsbooking.Application.Repositories;
+using Vejledningsbooking.Domain;
 
 namespace Vejledningsbooking.Application.UseCase
 {
@@ -19,7 +20,14 @@ namespace Vejledningsbooking.Application.UseCase
 
         public void UpdateBooking(BookingCommand data)
         {
-            _db.UpdateBooking(data);
+            Booking booking = new Booking()
+            {
+                BookingId = data.BookingId,
+                StartTidspunkt = data.StartTidspunkt,
+                SlutTidspunkt = data.SlutTidspunkt
+            };
+
+            _db.UpdateBooking(booking);
         }
     }
 }

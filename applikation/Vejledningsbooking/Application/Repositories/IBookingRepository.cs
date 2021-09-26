@@ -10,9 +10,9 @@ namespace Vejledningsbooking.Application.Repositories
 {
     public interface IBookingRepository
     {
-        void CreateBooking(BookingCommand data);
-        Booking LoadBooking(BookingCommand data);
-        void UpdateBooking(BookingCommand data);
-        void DeleteBooking(BookingCommand data);
+        void CreateBooking(Booking booking);
+        Booking LoadBooking(int id);
+        void UpdateBooking(Booking booking);
+        void DeleteBooking(Booking booking);
     }
 }
