@@ -39,13 +39,14 @@ namespace Test
                 Console.WriteLine();
 
                 Console.WriteLine("Tryk enter for at opdatere den");
+                Console.ReadLine();
 
                 UpdateBookingUseCase updateBooking = new UpdateBookingUseCase(db);
 
                 BookingCommand bookingData = new BookingCommand();
                 bookingData.BookingId = id;
-                bookingData.StartTidspunkt = new DateTime(2021, 11, 11, 14, 00, 00);
-                bookingData.SlutTidspunkt = new DateTime(2021, 11, 11, 15, 00, 00);
+                bookingData.StartTidspunkt = new DateTime(2021, 11, 11, 23, 00, 00);
+                bookingData.SlutTidspunkt = new DateTime(2021, 11, 11, 23, 20, 00);
                 bookingData.RowVersion = oldBooking.RowVersion;
                 updateBooking.UpdateBooking(bookingData);
             }
