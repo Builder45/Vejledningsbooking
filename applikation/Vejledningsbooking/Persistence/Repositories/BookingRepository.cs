@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,15 +37,19 @@ namespace Vejledningsbooking.Persistence.Repositories
 
         public void UpdateBooking(Booking bookingData)
         {
-            var booking = db.Booking
+            try
+            {
+                var booking = db.Booking
                     .Single(b => b.BookingId == bookingData.BookingId);
-            // Single = Finder ét element der matcher conditions
-            // Kaster en fejl, hvis der er 0 eller mere end 1 match
 
-            
-            booking.StartTidspunkt = bookingData.StartTidspunkt;
-            booking.SlutTidspunkt = bookingData.SlutTidspunkt;
-            db.SaveChanges();
+                booking.StartTidspunkt = bookingData.StartTidspunkt;
+                booking.SlutTidspunkt = bookingData.SlutTidspunkt;
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                Console.WriteLine("Concurrency fejl!");
+            }
         }
     }
 }

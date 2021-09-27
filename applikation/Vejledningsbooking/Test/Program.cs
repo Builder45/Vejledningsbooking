@@ -20,41 +20,32 @@ namespace Test
 
         static void testUpdateBooking()
         {
-            try
-            {
-                Console.Clear();
-                Console.WriteLine("Indtast et BookingId du vil ændre:");
-                int id = Convert.ToInt32(Console.ReadLine());
+            Console.Clear();
+            Console.WriteLine("Indtast et BookingId du vil ændre:");
+            int id = Convert.ToInt32(Console.ReadLine());
 
-                BookingContext context = new BookingContext();
-                BookingRepository db = new BookingRepository(context);
+            BookingContext context = new BookingContext();
+            BookingRepository db = new BookingRepository(context);
 
-                LoadBookingUseCase loadBooking = new LoadBookingUseCase(db);
-                Booking oldBooking = loadBooking.LoadBooking(id);
+            LoadBookingUseCase loadBooking = new LoadBookingUseCase(db);
+            Booking oldBooking = loadBooking.LoadBooking(id);
 
-                Console.WriteLine("Fandt følgende booking:");
-                Console.WriteLine(oldBooking.BookingId);
-                Console.WriteLine(oldBooking.StartTidspunkt);
-                Console.WriteLine(oldBooking.SlutTidspunkt);
-                Console.WriteLine();
+            Console.WriteLine("Fandt følgende booking:");
+            Console.WriteLine(oldBooking.BookingId);
+            Console.WriteLine(oldBooking.StartTidspunkt);
+            Console.WriteLine(oldBooking.SlutTidspunkt);
+            Console.WriteLine();
 
-                Console.WriteLine("Tryk enter for at opdatere den");
-                Console.ReadLine();
+            Console.WriteLine("Tryk enter for at opdatere den");
+            Console.ReadLine();
 
-                UpdateBookingUseCase updateBooking = new UpdateBookingUseCase(db);
+            UpdateBookingUseCase updateBooking = new UpdateBookingUseCase(db);
 
-                BookingCommand bookingData = new BookingCommand();
-                bookingData.BookingId = id;
-                bookingData.StartTidspunkt = new DateTime(2021, 11, 11, 23, 00, 00);
-                bookingData.SlutTidspunkt = new DateTime(2021, 11, 11, 23, 20, 00);
-                bookingData.RowVersion = oldBooking.RowVersion;
-                updateBooking.UpdateBooking(bookingData);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error:");
-                Console.WriteLine(e.Message);
-            }
+            BookingCommand bookingData = new BookingCommand();
+            bookingData.BookingId = id;
+            bookingData.StartTidspunkt = new DateTime(2021, 11, 11, 23, 00, 00);
+            bookingData.SlutTidspunkt = new DateTime(2021, 11, 11, 23, 30, 00);
+            updateBooking.UpdateBooking(bookingData);
         }
 
         static void seedDb()
