@@ -47,19 +47,5 @@ namespace Test
             bookingData.SlutTidspunkt = new DateTime(2021, 11, 11, 23, 30, 00);
             updateBooking.UpdateBooking(bookingData);
         }
-
-        static void seedDb()
-        {
-            try
-            {
-                Seeder seeder = new Seeder();
-                seeder.FullSeed();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error:");
-                Console.WriteLine(e.Message);
-            }
-        }
     }
 }
