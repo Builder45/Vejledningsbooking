@@ -14,18 +14,20 @@ namespace Vejledningsbooking.Application.UseCase.CreateBooking
         private IBookingRepository _db;
         private IBookingVindueRepository _bookingVindueDb;
 
-        public CreateBookingUseCase(IBookingRepository db)
+        public CreateBookingUseCase(IBookingRepository db, IBookingVindueRepository bookingVindueDb)
         {
             _db = db;
+            _bookingVindueDb = bookingVindueDb;
         }
 
         public void CreateBooking(BookingCommand data)
         {
-            Booking booking = new Booking()
-            {
-                StartTidspunkt = data.StartTidspunkt,
-                SlutTidspunkt = data.SlutTidspunkt
-            };
+            var bookingVindue = _bookingVindueDb.LoadBookingVindue(data.BookingVindueId);
+            var booking = new Booking(data.StartTidspunkt, data.SlutTidspunkt);
+            booking.BookingVindue = bookingVindue;
+
+            if (!booking.PasserMedVindue(bookingVindue)) throw new Exception();
+            if (booking.HarOverlap(bookingVindue)) throw new Exception();
 
             _db.CreateBooking(booking);
         }

@@ -10,7 +10,7 @@ using Vejledningsbooking.Persistence;
 
 namespace Vejledningsbooking.Persistence.Repositories
 {
-    class BookingVindueRepository : IBookingVindueRepository
+    public class BookingVindueRepository : IBookingVindueRepository
     {
         private readonly BookingContext db;
         public BookingVindueRepository(BookingContext context)
@@ -30,7 +30,15 @@ namespace Vejledningsbooking.Persistence.Repositories
 
         public BookingVindue LoadBookingVindue(int id)
         {
-            throw new NotImplementedException();
+            var bookingVindue = db.BookingVindue
+                .Single(bv => bv.Id == id);
+
+            List<Booking> bookinger = db.Booking
+                .Where(b => b.BookingVindue == bookingVindue)
+                .ToList();
+            bookingVindue.Bookinger = bookinger;
+
+            return bookingVindue;
         }
 
         public void UpdateBookingVindue(BookingVindue data)

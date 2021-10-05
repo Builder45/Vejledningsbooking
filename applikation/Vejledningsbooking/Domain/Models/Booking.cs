@@ -38,10 +38,28 @@ namespace Vejledningsbooking.Domain
 
         }
 
+        public bool HarOverlap(BookingVindue bookingVindue)
+        {
+            foreach (var booking in bookingVindue.Bookinger)
+            {
+                if (booking.StartTidspunkt > this.StartTidspunkt &&
+                    booking.StartTidspunkt < this.SlutTidspunkt)
+                {
+                    return true;
+                }
+                if (booking.SlutTidspunkt > this.StartTidspunkt &&
+                    booking.StartTidspunkt < this.SlutTidspunkt)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public bool PasserMedVindue(BookingVindue bookingVindue)
         {
-            if (this.StartTidspunkt.Ticks < bookingVindue.StartTidspunkt.Ticks ||
-                this.SlutTidspunkt.Ticks > bookingVindue.SlutTidspunkt.Ticks)
+            if (this.StartTidspunkt < bookingVindue.StartTidspunkt ||
+                this.SlutTidspunkt > bookingVindue.SlutTidspunkt)
             {
                 return false;
             }

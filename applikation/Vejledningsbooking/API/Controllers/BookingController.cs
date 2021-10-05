@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Vejledningsbooking.Application.UseCase;
+using Vejledningsbooking.Application.UseCase.CreateBooking;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,6 +14,17 @@ namespace Vejledningsbooking.API.Controllers
     [ApiController]
     public class BookingController : ControllerBase
     {
+        private readonly ICreateBookingUseCase _createBookingUseCase;
+        private readonly ILoadBookingUseCase _loadBookingUseCase;
+        private readonly IUpdateBookingUseCase _updateBookingUseCase;
+
+        public BookingController(ICreateBookingUseCase createBookingUseCase, ILoadBookingUseCase loadBookingUseCase, IUpdateBookingUseCase updateBookingUseCase)
+        {
+            _createBookingUseCase = createBookingUseCase;
+            _loadBookingUseCase = loadBookingUseCase;
+            _updateBookingUseCase = updateBookingUseCase;
+        }
+
         // GET: api/<BookingController>
         [HttpGet]
         public IEnumerable<string> Get()

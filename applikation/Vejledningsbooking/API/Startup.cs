@@ -12,7 +12,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Vejledningsbooking.Application.Repositories;
+using Vejledningsbooking.Application.UseCase;
+using Vejledningsbooking.Application.UseCase.CreateBooking;
 using Vejledningsbooking.Persistence;
+using Vejledningsbooking.Persistence.Repositories;
 
 namespace API
 {
@@ -31,11 +35,22 @@ namespace API
             services.AddDbContext<BookingContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("remoteDb")));
 
+            ConfigureIOC(services);
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
             });
+        }
+
+        private void ConfigureIOC(IServiceCollection services)
+        {
+            services.AddScoped<IBookingRepository, BookingRepository>();
+            services.AddScoped<IBookingVindueRepository, BookingVindueRepository>();
+            services.AddScoped<ICreateBookingUseCase, CreateBookingUseCase>();
+            services.AddScoped<ILoadBookingUseCase, LoadBookingUseCase>();
+            services.AddScoped<IUpdateBookingUseCase, UpdateBookingUseCase>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
