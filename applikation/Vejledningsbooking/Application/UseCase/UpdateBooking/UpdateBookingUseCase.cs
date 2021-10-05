@@ -22,7 +22,7 @@ namespace Vejledningsbooking.Application.UseCase
         {
             Booking booking = new Booking()
             {
-                BookingId = data.BookingId,
+                Id = data.BookingId,
                 StartTidspunkt = data.StartTidspunkt,
                 SlutTidspunkt = data.SlutTidspunkt
             };

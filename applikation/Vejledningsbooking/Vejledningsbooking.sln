@@ -20,12 +20,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{81D7F9EE-6730-4BD7-AC5F-C73EDC833404}"
-	ProjectSection(ProjectDependencies) = postProject
-		{3FD65109-B334-46F6-BAF7-5AAE3C647C80} = {3FD65109-B334-46F6-BAF7-5AAE3C647C80}
-		{EF53D749-4DAE-4D1B-85FD-4AE4F2060FAD} = {EF53D749-4DAE-4D1B-85FD-4AE4F2060FAD}
-		{ADE604A5-83BD-4FFE-A326-85CFF45EE519} = {ADE604A5-83BD-4FFE-A326-85CFF45EE519}
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vejledningsbooking.Mvc", "Mvc\Vejledningsbooking.Mvc.csproj", "{CFB22927-1E24-4562-BFB1-21C49885A553}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vejledningsbooking.API", "API\Vejledningsbooking.API.csproj", "{6745A729-BB72-4EAE-B213-4708F9FE7D7B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,10 +42,14 @@ Global
 		{EF53D749-4DAE-4D1B-85FD-4AE4F2060FAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF53D749-4DAE-4D1B-85FD-4AE4F2060FAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF53D749-4DAE-4D1B-85FD-4AE4F2060FAD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{81D7F9EE-6730-4BD7-AC5F-C73EDC833404}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{81D7F9EE-6730-4BD7-AC5F-C73EDC833404}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{81D7F9EE-6730-4BD7-AC5F-C73EDC833404}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{81D7F9EE-6730-4BD7-AC5F-C73EDC833404}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFB22927-1E24-4562-BFB1-21C49885A553}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFB22927-1E24-4562-BFB1-21C49885A553}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFB22927-1E24-4562-BFB1-21C49885A553}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFB22927-1E24-4562-BFB1-21C49885A553}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6745A729-BB72-4EAE-B213-4708F9FE7D7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6745A729-BB72-4EAE-B213-4708F9FE7D7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6745A729-BB72-4EAE-B213-4708F9FE7D7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6745A729-BB72-4EAE-B213-4708F9FE7D7B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

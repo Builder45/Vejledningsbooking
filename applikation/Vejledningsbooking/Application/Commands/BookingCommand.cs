@@ -13,5 +13,6 @@ namespace Vejledningsbooking.Application.Commands
         public DateTime SlutTidspunkt { get; set; }
 
         public byte[] RowVersion { get; set; }
+        public int BookingVindueId { get; set; }
     }
 }

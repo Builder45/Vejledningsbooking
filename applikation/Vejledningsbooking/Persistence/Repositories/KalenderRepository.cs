@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Vejledningsbooking.Application.Commands;
 using Vejledningsbooking.Application.Repositories;
 using Vejledningsbooking.Domain;
-using Vejledningsbooking.Persistence.Data;
 
 namespace Vejledningsbooking.Persistence.Repositories
 {
@@ -30,25 +29,26 @@ namespace Vejledningsbooking.Persistence.Repositories
 
         public Kalender LoadKalender(KalenderCommand data)
         {
-            Kalender kalender = db.Kalender
-                    .Single(k => k.UnderviserId == data.UnderviserId &&
-                                 k.HoldId == data.HoldId);
+            //Kalender kalender = db.Kalender
+            //        .Single(k => k.UnderviserId == data.UnderviserId &&
+            //                     k.HoldId == data.HoldId);
 
-            List<BookingVindue> bookingVinduer = db.BookingVindue
-                .Where(b => b.UnderviserId == data.UnderviserId &&
-                            b.HoldId == data.HoldId)
-                .ToList();
+            //List<BookingVindue> bookingVinduer = db.BookingVindue
+            //    .Where(b => b.UnderviserId == data.UnderviserId &&
+            //                b.HoldId == data.HoldId)
+            //    .ToList();
 
-            foreach (var bookingVindue in bookingVinduer)
-            {
-                List<Booking> bookinger = db.Booking
-                    .Where(b => b.BookingVindueId == bookingVindue.BookingVindueId)
-                    .ToList();
-                bookingVindue.Bookinger = bookinger;
-            }
+            //foreach (var bookingVindue in bookingVinduer)
+            //{
+            //    List<Booking> bookinger = db.Booking
+            //        .Where(b => b.BookingVindueId == bookingVindue.Id)
+            //        .ToList();
+            //    bookingVindue.Bookinger = bookinger;
+            //}
 
-            kalender.BookingVinduer = bookingVinduer;
-            return kalender;
+            //kalender.BookingVinduer = bookingVinduer;
+            //return kalender;
+            return new Kalender();
         }
 
         public void UpdateKalender(KalenderCommand data)

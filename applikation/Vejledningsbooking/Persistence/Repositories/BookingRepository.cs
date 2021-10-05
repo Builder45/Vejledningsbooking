@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Vejledningsbooking.Application.Commands;
 using Vejledningsbooking.Application.Repositories;
 using Vejledningsbooking.Domain;
-using Vejledningsbooking.Persistence.Data;
+using Vejledningsbooking.Persistence;
 
 namespace Vejledningsbooking.Persistence.Repositories
 {
@@ -18,12 +18,13 @@ namespace Vejledningsbooking.Persistence.Repositories
             db = context;
         }
 
-        public void CreateBooking(Booking bookingData)
+        public void CreateBooking(Booking booking)
         {
-            throw new NotImplementedException();
+            db.Booking.Add(booking);
+            db.SaveChanges();
         }
 
-        public void DeleteBooking(Booking bookingData)
+        public void DeleteBooking(Booking data)
         {
             throw new NotImplementedException();
         }
@@ -31,19 +32,19 @@ namespace Vejledningsbooking.Persistence.Repositories
         public Booking LoadBooking(int id)
         {
             Booking booking = db.Booking
-                    .Single(b => b.BookingId == id);
+                    .Single(b => b.Id == id);
             return booking;
         }
 
-        public void UpdateBooking(Booking bookingData)
+        public void UpdateBooking(Booking data)
         {
             try
             {
                 var booking = db.Booking
-                    .Single(b => b.BookingId == bookingData.BookingId);
+                    .Single(b => b.Id == data.Id);
 
-                booking.StartTidspunkt = bookingData.StartTidspunkt;
-                booking.SlutTidspunkt = bookingData.SlutTidspunkt;
+                booking.StartTidspunkt = data.StartTidspunkt;
+                booking.SlutTidspunkt = data.SlutTidspunkt;
                 db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)

@@ -3,7 +3,6 @@ using Vejledningsbooking.Application.Commands;
 using Vejledningsbooking.Application.UseCase;
 using Vejledningsbooking.Domain;
 using Vejledningsbooking.Persistence;
-using Vejledningsbooking.Persistence.Data;
 using Vejledningsbooking.Persistence.Repositories;
 
 namespace Test

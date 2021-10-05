@@ -8,7 +8,7 @@ using Vejledningsbooking.Domain;
 
 namespace Vejledningsbooking.Application.UseCase
 {
-    public class LoadBookingUseCase
+    public class LoadBookingUseCase : ILoadBookingUseCase
     {
         private IBookingRepository _db;
 

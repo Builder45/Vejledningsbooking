@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Vejledningsbooking.Application.Commands;
 using Vejledningsbooking.Application.Repositories;
 using Vejledningsbooking.Domain;
-using Vejledningsbooking.Persistence.Data;
+using Vejledningsbooking.Persistence;
 
 namespace Vejledningsbooking.Persistence.Repositories
 {
@@ -18,22 +18,22 @@ namespace Vejledningsbooking.Persistence.Repositories
             db = context;
         }
 
-        public void CreateBookingVindue(BookingVindueCommand data)
+        public void CreateBookingVindue(BookingVindue data)
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteBookingVindue(BookingVindueCommand data)
+        public void DeleteBookingVindue(BookingVindue data)
         {
             throw new NotImplementedException();
         }
 
-        public BookingVindue LoadBookingVindue(BookingVindueCommand data)
+        public BookingVindue LoadBookingVindue(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void UpdateBookingVindue(BookingVindueCommand data)
+        public void UpdateBookingVindue(BookingVindue data)
         {
             throw new NotImplementedException();
         }

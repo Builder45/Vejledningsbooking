@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Vejledningsbooking.Persistence.Data;
+using Vejledningsbooking.Persistence;
 
 namespace Vejledningsbooking.Persistence.Migrations
 {
@@ -21,7 +21,7 @@ namespace Vejledningsbooking.Persistence.Migrations
 
             modelBuilder.Entity("Vejledningsbooking.Domain.Booking", b =>
                 {
-                    b.Property<int>("BookingId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -31,6 +31,7 @@ namespace Vejledningsbooking.Persistence.Migrations
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
+                        .IsRequired()
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
 
@@ -43,7 +44,7 @@ namespace Vejledningsbooking.Persistence.Migrations
                     b.Property<int?>("StuderendeId")
                         .HasColumnType("int");
 
-                    b.HasKey("BookingId");
+                    b.HasKey("Id");
 
                     b.HasIndex("BookingVindueId");
 
@@ -54,13 +55,12 @@ namespace Vejledningsbooking.Persistence.Migrations
 
             modelBuilder.Entity("Vejledningsbooking.Domain.BookingVindue", b =>
                 {
-                    b.Property<int>("BookingVindueId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("HoldId")
-                        .IsRequired()
+                    b.Property<int?>("KalenderId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("SlutTidspunkt")
@@ -70,46 +70,54 @@ namespace Vejledningsbooking.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("UnderviserId")
-                        .IsRequired()
                         .HasColumnType("int");
 
-                    b.HasKey("BookingVindueId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("UnderviserId", "HoldId");
+                    b.HasIndex("KalenderId");
+
+                    b.HasIndex("UnderviserId");
 
                     b.ToTable("BookingVindue");
                 });
 
             modelBuilder.Entity("Vejledningsbooking.Domain.Hold", b =>
                 {
-                    b.Property<int>("HoldId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.HasKey("HoldId");
+                    b.HasKey("Id");
 
                     b.ToTable("Hold");
                 });
 
             modelBuilder.Entity("Vejledningsbooking.Domain.Kalender", b =>
                 {
-                    b.Property<int?>("UnderviserId")
-                        .HasColumnType("int");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("HoldId")
                         .HasColumnType("int");
 
-                    b.HasKey("UnderviserId", "HoldId");
+                    b.Property<int?>("UnderviserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("HoldId");
+
+                    b.HasIndex("UnderviserId");
 
                     b.ToTable("Kalender");
                 });
 
             modelBuilder.Entity("Vejledningsbooking.Domain.Studerende", b =>
                 {
-                    b.Property<int>("StuderendeId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -117,14 +125,14 @@ namespace Vejledningsbooking.Persistence.Migrations
                     b.Property<string>("Navn")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("StuderendeId");
+                    b.HasKey("Id");
 
                     b.ToTable("Studerende");
                 });
 
             modelBuilder.Entity("Vejledningsbooking.Domain.Underviser", b =>
                 {
-                    b.Property<int>("UnderviserId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -132,7 +140,7 @@ namespace Vejledningsbooking.Persistence.Migrations
                     b.Property<string>("Navn")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("UnderviserId");
+                    b.HasKey("Id");
 
                     b.ToTable("Underviser");
                 });
@@ -156,26 +164,26 @@ namespace Vejledningsbooking.Persistence.Migrations
                 {
                     b.HasOne("Vejledningsbooking.Domain.Kalender", "Kalender")
                         .WithMany("BookingVinduer")
-                        .HasForeignKey("UnderviserId", "HoldId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("KalenderId");
+
+                    b.HasOne("Vejledningsbooking.Domain.Underviser", "Underviser")
+                        .WithMany("BookingVinduer")
+                        .HasForeignKey("UnderviserId");
 
                     b.Navigation("Kalender");
+
+                    b.Navigation("Underviser");
                 });
 
             modelBuilder.Entity("Vejledningsbooking.Domain.Kalender", b =>
                 {
                     b.HasOne("Vejledningsbooking.Domain.Hold", "Hold")
                         .WithMany("Kalendere")
-                        .HasForeignKey("HoldId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("HoldId");
 
                     b.HasOne("Vejledningsbooking.Domain.Underviser", "Underviser")
                         .WithMany("Kalendere")
-                        .HasForeignKey("UnderviserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UnderviserId");
 
                     b.Navigation("Hold");
 
@@ -204,6 +212,8 @@ namespace Vejledningsbooking.Persistence.Migrations
 
             modelBuilder.Entity("Vejledningsbooking.Domain.Underviser", b =>
                 {
+                    b.Navigation("BookingVinduer");
+
                     b.Navigation("Kalendere");
                 });
 #pragma warning restore 612, 618
