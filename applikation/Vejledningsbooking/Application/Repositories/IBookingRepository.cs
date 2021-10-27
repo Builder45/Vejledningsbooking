@@ -11,7 +11,8 @@ namespace Vejledningsbooking.Application.Repositories
     public interface IBookingRepository
     {
         void CreateBooking(Booking booking);
-        Booking LoadBooking(int id);
+        Booking LoadBooking(int bookingId);
+        List<Booking> LoadBookings(int bookingVindueId);
         void UpdateBooking(Booking booking);
         void DeleteBooking(Booking booking);
     }

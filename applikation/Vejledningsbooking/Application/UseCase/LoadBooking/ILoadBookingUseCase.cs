@@ -1,9 +1,12 @@
-﻿using Vejledningsbooking.Domain;
+﻿using System.Collections.Generic;
+using Vejledningsbooking.Application.Commands;
+using Vejledningsbooking.Domain;
 
 namespace Vejledningsbooking.Application.UseCase
 {
     public interface ILoadBookingUseCase
     {
-        Booking LoadBooking(int id);
+        Booking LoadBooking(BookingCommand command);
+        List<Booking> LoadBookings(BookingCommand command);
     }
 }

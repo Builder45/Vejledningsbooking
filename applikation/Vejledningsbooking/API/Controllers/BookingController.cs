@@ -3,8 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Vejledningsbooking.API.DTO;
+using Vejledningsbooking.Application.Commands;
 using Vejledningsbooking.Application.UseCase;
 using Vejledningsbooking.Application.UseCase.CreateBooking;
+using Vejledningsbooking.Application.UseCase.LoadBookingVindue;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,32 +20,33 @@ namespace Vejledningsbooking.API.Controllers
         private readonly ICreateBookingUseCase _createBookingUseCase;
         private readonly ILoadBookingUseCase _loadBookingUseCase;
         private readonly IUpdateBookingUseCase _updateBookingUseCase;
+        private readonly ILoadBookingVindueUseCase _loadBookingVindueUseCase;
 
-        public BookingController(ICreateBookingUseCase createBookingUseCase, ILoadBookingUseCase loadBookingUseCase, IUpdateBookingUseCase updateBookingUseCase)
+        public BookingController(ICreateBookingUseCase createBookingUseCase, ILoadBookingUseCase loadBookingUseCase, IUpdateBookingUseCase updateBookingUseCase, ILoadBookingVindueUseCase loadBookingVindueUseCase)
         {
             _createBookingUseCase = createBookingUseCase;
             _loadBookingUseCase = loadBookingUseCase;
             _updateBookingUseCase = updateBookingUseCase;
-        }
-
-        // GET: api/<BookingController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
+            _loadBookingVindueUseCase = loadBookingVindueUseCase;
         }
 
         // GET api/<BookingController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IEnumerable<BookingDTO> Get(int bookingVindueId)
         {
-            return "value";
+            var model = _loadBookingUseCase.LoadBookings(new BookingCommand { BookingVindueId = bookingVindueId });
+            var dto = new List<BookingDTO>();
+            model.ForEach(b => dto.Add(new BookingDTO 
+                { Id = b.Id, StartTidspunkt = b.StartTidspunkt, SlutTidspunkt = b.SlutTidspunkt }));
+            return dto;
         }
 
         // POST api/<BookingController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] BookingDTO dto)
         {
+            _createBookingUseCase.CreateBooking(new BookingCommand 
+                { BookingVindueId = dto.BookingVindueId, StartTidspunkt = dto.StartTidspunkt, SlutTidspunkt = dto.SlutTidspunkt });
         }
 
         // PUT api/<BookingController>/5

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,6 +35,17 @@ namespace Vejledningsbooking.Persistence.Repositories
             Booking booking = db.Booking
                     .Single(b => b.Id == id);
             return booking;
+        }
+
+        public List<Booking> LoadBookings(int bookingVindueId)
+        {
+            var bookingVindue = db.BookingVindue
+                .Single(bv => bv.Id == bookingVindueId);
+            List<Booking> bookinger = db.Booking
+                .Where(b => b.BookingVindue == bookingVindue)
+                .ToList();
+
+            return bookinger;
         }
 
         public void UpdateBooking(Booking data)
